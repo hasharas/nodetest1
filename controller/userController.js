@@ -1,18 +1,19 @@
 const User = require('../models/userModel');
 
 //create user
-
-exports.createUser = async (req, res, next) => {
+exports.createUser = async (req, res, error) => {
       try {
             const user = await User.create(req.body);
-            res.status(201).json(user);
-
-      } catch (error) {
-            next(error);
+            res.status(201).json({
+                  message: "create",
+                  data: user
+            })
+      } catch (err) {
+            error(err);
       }
-};
+}
 
-exports.getAllUsers = async (req, res, next) => {
+exports.getAllUsers = async (req, res, error) => {
       try {
             const users = await User.find();
             res.status(200).json({
@@ -21,6 +22,6 @@ exports.getAllUsers = async (req, res, next) => {
             });
 
       } catch (err) {
-            next(err);
+            error(err);
       }
 }
