@@ -46,3 +46,16 @@ exports.updateUserById = async (req, res, next) => {
             next(err);
       }
 }
+
+exports.deleteUserById = async (req, res, next) => {
+      try {
+            const user = await User.findByIdAndDelete(req.params.id);
+            if (!user) return res.ststus(404).json({ message: 'user not found' });
+            res.json({
+                  message: "user delete..",
+                  data: user
+            });
+      } catch (err) {
+            next(err)
+      }
+}
