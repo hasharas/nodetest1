@@ -25,3 +25,17 @@ exports.getAllUsers = async (req, res, error) => {
             error(err);
       }
 }
+
+exports.getUserById = async (req, res, next) => {
+      try {
+            const user = await User.findById(req.params.id);
+            if (!user) return res.ststus(404).json({ message: 'user not found' });
+            res.json({
+                  message: 'user',
+                  data: user
+            })
+      } catch (err) {
+            next(err);
+
+      }
+} 
